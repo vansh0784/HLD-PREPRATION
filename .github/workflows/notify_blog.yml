@@ -6,16 +6,10 @@ on:
       - "**.md"
 
 jobs:
-  notify:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Notify frontend repository
+      - name: Trigger Vercel deployment
         run: |
-          curl -L \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.BLOG_REPO_TOKEN }}" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/vansh0784/next_fe/dispatches \
-            -d '{"event_type":"knowledge-updated"}'
+          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
